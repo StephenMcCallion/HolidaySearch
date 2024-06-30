@@ -36,11 +36,16 @@ namespace HolidaySearch.Models
         /// <returns></returns>
         public IEnumerable<IFlight> SearchForFlights(string departingFrom, string arrivingTo, DateTime departureDate)
         {
-            return _flights.Where(f =>
-                f.from.Equals(departingFrom, StringComparison.OrdinalIgnoreCase) &&
-                f.to.Equals(arrivingTo, StringComparison.OrdinalIgnoreCase) &&
-                f.departure_date.Date == departureDate.Date)
-                .OrderBy(f => f.price);
+
+            return _flights
+                .Where(f =>
+                    (departingFrom.Equals("Any", StringComparison.OrdinalIgnoreCase) ||
+                     (departingFrom.Equals("London", StringComparison.OrdinalIgnoreCase) &&
+                      (f.from.Equals("LGW", StringComparison.OrdinalIgnoreCase) || f.from.Equals("LTN", StringComparison.OrdinalIgnoreCase))) ||
+                     f.from.Equals(departingFrom, StringComparison.OrdinalIgnoreCase)) &&
+                    f.to.Equals(arrivingTo, StringComparison.OrdinalIgnoreCase) &&
+                    f.departure_date.Date == departureDate.Date)
+                .OrderBy(f => f.price); // Order by price in ascending order
         }
 
         /// <summary>

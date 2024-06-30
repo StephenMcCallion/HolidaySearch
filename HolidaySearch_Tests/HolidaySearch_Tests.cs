@@ -90,5 +90,22 @@ namespace HolidaySearch_Tests
             Assert.AreEqual(result.hotel.price_per_night, 60);
             Assert.AreEqual(result.totalCost, 675);
         }
+
+        [Test]
+        public void SearchForPackageHoliday_Customer3_Test()
+        {
+            IHolidaySearch holidaySearch = new HolidaySearch.Models.HolidaySearch(flights, hotels);
+            IEnumerable<IPackageHoliday> packageOptions = holidaySearch.SearchForPackageHoliday("ANY", "LPA", new DateTime(2022, 11, 10), 14);
+            IPackageHoliday result = packageOptions.FirstOrDefault();
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.flight.id, 7);
+            Assert.AreEqual(result.flight.from, "MAN");
+            Assert.AreEqual(result.flight.to, "LPA");
+            Assert.AreEqual(result.flight.price, 125);
+            Assert.AreEqual(result.hotel.id, 6);
+            Assert.AreEqual(result.hotel.name, "Club Maspalomas Suites and Spa");
+            Assert.AreEqual(result.hotel.price_per_night, 75);
+            Assert.AreEqual(result.totalCost, 1175);
+        }
     }
 }
