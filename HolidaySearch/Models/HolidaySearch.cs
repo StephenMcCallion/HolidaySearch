@@ -24,8 +24,11 @@ namespace HolidaySearch.Models
         /// <returns></returns>
         public IEnumerable<IFlight> SearchForFlights(string departingFrom, string arrivingTo, DateTime departureDate)
         {
-            var filteredFlights = _flights.Where(f => f.from == departingFrom && f.to == arrivingTo && f.departure_date.Date == departureDate.Date);
-            return filteredFlights;
+            return _flights.Where(f =>
+                f.from.Equals(departingFrom, StringComparison.OrdinalIgnoreCase) &&
+                f.to.Equals(arrivingTo, StringComparison.OrdinalIgnoreCase) &&
+                f.departure_date.Date == departureDate.Date)
+                .OrderBy(f => f.price);
         }
     }
 }

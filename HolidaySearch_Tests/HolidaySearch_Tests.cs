@@ -13,6 +13,7 @@ namespace HolidaySearch_Tests
     public class HolidaySearch_Tests
     {
         public IEnumerable<IFlight> flights { get; set; }
+        public IEnumerable<IHotel> hotels { get; set; }
 
         [SetUp]
         public void SetUp()
@@ -25,6 +26,15 @@ namespace HolidaySearch_Tests
             {
                 Assert.Fail($"Failed to load flight data: {ex.Message}");
             }
+
+            try
+            {
+                hotels = JsonConvert.DeserializeObject<IEnumerable<Hotel>>(File.ReadAllText("../../../Data/HotelData.json"));
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail($"Failed to retrieve hotel data: {ex.Message}");
+            }
         }
 
         [Test]
@@ -33,6 +43,16 @@ namespace HolidaySearch_Tests
             IHolidaySearch holidaySearch = new HolidaySearch.Models.HolidaySearch(flights);
             IEnumerable<IFlight> flightOptions = holidaySearch.SearchForFlights("MAN", "TFS", new DateTime(2023, 07, 01));
             IFlight result = flightOptions.FirstOrDefault();
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.id, 1);
+        }
+
+        [Test]
+        public void SearchForHotel_Test()
+        {
+            IHolidaySearch holidaySearch = new HolidaySearch.Models.HolidaySearch(hotels);
+            IEnumerable<IHotel> hotelOptions = holidaySearch.SearchForHotel("TFS", new DateTime(2023, 11, 05), 7);
+            IHotel result = hotelOptions.FirstOrDefault();
             Assert.IsNotNull(result);
             Assert.AreEqual(result.id, 1);
         }
