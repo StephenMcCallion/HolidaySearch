@@ -9,11 +9,11 @@ namespace HolidaySearch.Models
 {
     public class Hotel : IHotel
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public DateTime ArrivalDate { get; set; }
-        public decimal PricePerNight { get; set; }
-        public List<string> LocalAirports { get; set; }
-        public int Nights { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
+        public DateTime arrival_date { get; set; }
+        public decimal price_per_night { get; set; }
+        public List<string> local_airports { get; set; }
+        public int nights { get; set; }
     }
 }

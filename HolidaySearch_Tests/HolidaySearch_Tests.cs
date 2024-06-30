@@ -51,7 +51,7 @@ namespace HolidaySearch_Tests
         public void SearchForHotel_Test()
         {
             IHolidaySearch holidaySearch = new HolidaySearch.Models.HolidaySearch(hotels);
-            IEnumerable<IHotel> hotelOptions = holidaySearch.SearchForHotel("TFS", new DateTime(2023, 11, 05), 7);
+            IEnumerable<IHotel> hotelOptions = holidaySearch.SearchForHotel("TFS", new DateTime(2022, 11, 05), 7);
             IHotel result = hotelOptions.FirstOrDefault();
             Assert.IsNotNull(result);
             Assert.AreEqual(result.id, 1);

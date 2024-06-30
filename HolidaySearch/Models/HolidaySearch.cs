@@ -10,9 +10,15 @@ namespace HolidaySearch.Models
     public class HolidaySearch : IHolidaySearch
     {
         public IEnumerable<IFlight> _flights { get; set; }
+        public IEnumerable<IHotel> _hotels { get; set; }
         public HolidaySearch(IEnumerable<IFlight> flights)
         {
             this._flights = flights;
+        }
+
+        public HolidaySearch(IEnumerable<IHotel> hotels)
+        {
+            this._hotels = hotels;
         }
 
         /// <summary>
@@ -29,6 +35,18 @@ namespace HolidaySearch.Models
                 f.to.Equals(arrivingTo, StringComparison.OrdinalIgnoreCase) &&
                 f.departure_date.Date == departureDate.Date)
                 .OrderBy(f => f.price);
+        }
+
+        /// <summary>
+        /// Method to return a IENumberable of hotels
+        /// </summary>
+        /// <param name="arrivingTo">Arriving to airport</param>
+        /// <param name="arrivalDate">Date of arrival</param>
+        /// <param name="numberOfNights">Number of nights staying</param>
+        /// <returns></returns>
+        public IEnumerable<IHotel> SearchForHotel(string arrivingTo, DateTime arrivalDate, int numberOfNights)
+        {
+            return _hotels.Where(h => h.local_airports.Contains(arrivingTo) && h.arrival_date.Date == arrivalDate.Date && h.nights == numberOfNights);
         }
     }
 }
