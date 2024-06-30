@@ -61,8 +61,8 @@ namespace HolidaySearch_Tests
         public void SearchForPackageHoliday_Test()
         {
             IHolidaySearch holidaySearch = new HolidaySearch.Models.HolidaySearch(flights, hotels);
-            IEnumerable<IPackageHoliday> hotelOptions = holidaySearch.SearchForPackageHoliday("MAN", "AGP", new DateTime(2023, 07, 01), 7);
-            IPackageHoliday result = hotelOptions.FirstOrDefault();
+            IEnumerable<IPackageHoliday> packageOptions = holidaySearch.SearchForPackageHoliday("MAN", "AGP", new DateTime(2023, 07, 01), 7);
+            IPackageHoliday result = packageOptions.FirstOrDefault();
             Assert.IsNotNull(result);
             Assert.AreEqual(result.flight.id, 2);
             Assert.AreEqual(result.flight.from, "MAN");
@@ -72,6 +72,23 @@ namespace HolidaySearch_Tests
             Assert.AreEqual(result.hotel.name, "Nh Malaga");
             Assert.AreEqual(result.hotel.price_per_night, 83);
             Assert.AreEqual(result.totalCost, 826);   
+        }
+
+        [Test]
+        public void SearchForPackageHoliday_Customer2_Test()
+        {
+            IHolidaySearch holidaySearch = new HolidaySearch.Models.HolidaySearch(flights, hotels);
+            IEnumerable<IPackageHoliday> packageOptions = holidaySearch.SearchForPackageHoliday("London", "PMI", new DateTime(2023, 06, 15), 10);
+            IPackageHoliday result = packageOptions.FirstOrDefault();
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.flight.id, 6);
+            Assert.AreEqual(result.flight.from, "LGW");
+            Assert.AreEqual(result.flight.to, "PMI");
+            Assert.AreEqual(result.flight.price, 75);
+            Assert.AreEqual(result.hotel.id, 5);
+            Assert.AreEqual(result.hotel.name, "Sol Katmandu Park & Resort");
+            Assert.AreEqual(result.hotel.price_per_night, 60);
+            Assert.AreEqual(result.totalCost, 675);
         }
     }
 }
