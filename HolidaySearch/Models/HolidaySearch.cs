@@ -46,7 +46,10 @@ namespace HolidaySearch.Models
         /// <returns></returns>
         public IEnumerable<IHotel> SearchForHotel(string arrivingTo, DateTime arrivalDate, int numberOfNights)
         {
-            return _hotels.Where(h => h.local_airports.Contains(arrivingTo) && h.arrival_date.Date == arrivalDate.Date && h.nights == numberOfNights);
+            return _hotels.Where(h => h.local_airports.Contains(arrivingTo, StringComparer.OrdinalIgnoreCase)
+            && h.arrival_date.Date == arrivalDate.Date
+            && h.nights == numberOfNights)
+                .OrderBy(h => h.price_per_night);
         }
     }
 }
