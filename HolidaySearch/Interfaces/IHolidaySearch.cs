@@ -10,6 +10,7 @@ namespace HolidaySearch.Interfaces
     {
         IEnumerable<IFlight> SearchForFlights(string departingFrom, string arrivingTo, DateTime deptartureDate);
         IEnumerable<IHotel> SearchForHotel(string arrivingTo, DateTime arrivalDate, int numberOfNights);
+        IEnumerable<IPackageHoliday> SearchForPackageHoliday(string departingFrom, string arrivingTo, DateTime departureDate, int nights);
 
     }
 }

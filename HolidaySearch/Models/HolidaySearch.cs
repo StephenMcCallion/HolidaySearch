@@ -21,6 +21,12 @@ namespace HolidaySearch.Models
             this._hotels = hotels;
         }
 
+        public HolidaySearch(IEnumerable<IFlight> flights,  IEnumerable<IHotel> hotels)
+        {
+            this._flights = flights;
+            this._hotels = hotels;
+        }
+
         /// <summary>
         /// Method that searches for a flight
         /// </summary>
@@ -50,6 +56,34 @@ namespace HolidaySearch.Models
             && h.arrival_date.Date == arrivalDate.Date
             && h.nights == numberOfNights)
                 .OrderBy(h => h.price_per_night);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="departingFrom">Departing from airport</param>
+        /// <param name="arrivingTo">Arriving at airport</param>
+        /// <param name="departureDate">Date of departure</param>
+        /// <param name="nights">Number of nights stay</param>
+        /// <returns>IEnumerable of package holidays</returns>
+        public IEnumerable<IPackageHoliday> SearchForPackageHoliday(string departingFrom, string arrivingTo, DateTime departureDate, int nights)
+        {
+            List<IPackageHoliday> packageHolidays = new List<IPackageHoliday>();
+            IEnumerable<IFlight> flightOptions = SearchForFlights(departingFrom, arrivingTo, departureDate);
+            IEnumerable<IHotel> hotelOptions = SearchForHotel(arrivingTo, departureDate, nights);
+            foreach (IFlight flight in flightOptions) 
+            {
+                foreach (IHotel hotel in hotelOptions) 
+                {
+                    packageHolidays.Add(new PackageHoliday
+                    {
+                        flight = flight,
+                        hotel = hotel,
+                        totalCost = flight.price + (hotel.price_per_night * hotel.nights)
+                    });
+                }
+            }
+            return packageHolidays;
         }
     }
 }

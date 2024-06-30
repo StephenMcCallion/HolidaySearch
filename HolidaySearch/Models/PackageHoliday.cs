@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HolidaySearch.Models
 {
-    public class PackageHoliday
+    public class PackageHoliday : IPackageHoliday
     {
         public IFlight flight { get; set; }
         public IHotel hotel { get; set; }
