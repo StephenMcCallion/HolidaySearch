@@ -30,7 +30,7 @@ namespace HolidaySearch_Tests
         [Test]
         public void SearchForFlight_Test()
         {
-            IHolidaySearch holidaySearch = new HolidaySearch(flights);
+            IHolidaySearch holidaySearch = new HolidaySearch.Models.HolidaySearch(flights);
             IEnumerable<IFlight> flightOptions = holidaySearch.SearchForFlights("MAN", "TFS", new DateTime(2023, 07, 01));
             IFlight result = flightOptions.FirstOrDefault();
             Assert.IsNotNull(result);

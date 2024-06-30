@@ -20,7 +20,7 @@ namespace HolidaySearch.Models
         /// </summary>
         /// <param name="departingFrom">Depature Airport</param>
         /// <param name="arrivingTo">Arrival Airport</param>
-        /// <param name="deptartureDate">Date of Departure</param>
+        /// <param name="departureDate">Date of Departure</param>
         /// <returns></returns>
         public IEnumerable<IFlight> SearchForFlights(string departingFrom, string arrivingTo, DateTime departureDate)
         {
