@@ -59,7 +59,7 @@ namespace HolidaySearch.Models
         }
 
         /// <summary>
-        /// 
+        /// Method to search for package holidays
         /// </summary>
         /// <param name="departingFrom">Departing from airport</param>
         /// <param name="arrivingTo">Arriving at airport</param>
@@ -68,22 +68,27 @@ namespace HolidaySearch.Models
         /// <returns>IEnumerable of package holidays</returns>
         public IEnumerable<IPackageHoliday> SearchForPackageHoliday(string departingFrom, string arrivingTo, DateTime departureDate, int nights)
         {
-            List<IPackageHoliday> packageHolidays = new List<IPackageHoliday>();
             IEnumerable<IFlight> flightOptions = SearchForFlights(departingFrom, arrivingTo, departureDate);
             IEnumerable<IHotel> hotelOptions = SearchForHotel(arrivingTo, departureDate, nights);
-            foreach (IFlight flight in flightOptions) 
+
+            // Check if flights or hotels are available
+            if (!flightOptions.Any() || !hotelOptions.Any())
             {
-                foreach (IHotel hotel in hotelOptions) 
+                throw new Exception("No flights or hotels found for the given criteria.");
+            }
+
+            foreach (IFlight flight in flightOptions)
+            {
+                foreach (IHotel hotel in hotelOptions)
                 {
-                    packageHolidays.Add(new PackageHoliday
+                    yield return new PackageHoliday
                     {
                         flight = flight,
                         hotel = hotel,
                         totalCost = flight.price + (hotel.price_per_night * hotel.nights)
-                    });
+                    };
                 }
             }
-            return packageHolidays;
         }
     }
 }
