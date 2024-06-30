@@ -8,5 +8,6 @@ namespace HolidaySearch.Interfaces
 {
     public interface IHolidaySearch
     {
+        IEnumerable<IFlight> SearchForFlights(string departingFrom, string arrivingTo, DateTime deptartureDate);
     }
 }
