@@ -44,7 +44,7 @@ namespace HolidaySearch_Tests
             IEnumerable<IFlight> flightOptions = holidaySearch.SearchForFlights("MAN", "TFS", new DateTime(2023, 07, 01));
             IFlight result = flightOptions.FirstOrDefault();
             Assert.IsNotNull(result);
-            Assert.AreEqual(result.id, 1);
+            Assert.AreEqual(1, result.id);
         }
 
         [Test]
@@ -54,7 +54,7 @@ namespace HolidaySearch_Tests
             IEnumerable<IHotel> hotelOptions = holidaySearch.SearchForHotel("TFS", new DateTime(2022, 11, 05), 7);
             IHotel result = hotelOptions.FirstOrDefault();
             Assert.IsNotNull(result);
-            Assert.AreEqual(result.id, 2);
+            Assert.AreEqual(2, result.id);
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace HolidaySearch_Tests
             Assert.AreEqual(result.hotel.id, 9);
             Assert.AreEqual(result.hotel.name, "Nh Malaga");
             Assert.AreEqual(result.hotel.price_per_night, 83);
-            Assert.AreEqual(result.totalCost, 826);   
+            Assert.AreEqual(826, result.totalCost);   
         }
 
         [Test]
@@ -88,7 +88,7 @@ namespace HolidaySearch_Tests
             Assert.AreEqual(result.hotel.id, 5);
             Assert.AreEqual(result.hotel.name, "Sol Katmandu Park & Resort");
             Assert.AreEqual(result.hotel.price_per_night, 60);
-            Assert.AreEqual(result.totalCost, 675);
+            Assert.AreEqual(675, result.totalCost);
         }
 
         [Test]
@@ -105,7 +105,7 @@ namespace HolidaySearch_Tests
             Assert.AreEqual(result.hotel.id, 6);
             Assert.AreEqual(result.hotel.name, "Club Maspalomas Suites and Spa");
             Assert.AreEqual(result.hotel.price_per_night, 75);
-            Assert.AreEqual(result.totalCost, 1175);
+            Assert.AreEqual(1175, result.totalCost);
         }
     }
 }
